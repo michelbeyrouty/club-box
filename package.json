@@ -1,0 +1,23 @@
+{
+  "name": "club-box",
+  "version": "1.0.0",
+  "description": "Web app that is a replica of Clubhouse app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michelbeyrouty/club-box.git"
+  },
+  "author": "michelbeyrouty@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michelbeyrouty/club-box/issues"
+  },
+  "homepage": "https://github.com/michelbeyrouty/club-box#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^1.2.0"
+  }
+}
