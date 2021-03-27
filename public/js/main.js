@@ -1,7 +1,7 @@
 // Defining some global utility letiables
 let isRemotePeerAvailble = false;
 let isRoomCreated = false;
-let isStarted = false;
+let isPeerConnectionCreated = false;
 let localStream;
 let remoteStream;
 let peerConnection;
@@ -50,10 +50,10 @@ function addLocalStream (stream) {
 
 // If Room Initiated, create the peer connection
 function startStream () {
-  if (!isStarted && !!localStream && isRemotePeerAvailble) {
+  if (!isPeerConnectionCreated && localStream && isRemotePeerAvailble) {
     createPeerConnection();
     peerConnection.addStream(localStream);
-    isStarted = true;
+    isPeerConnectionCreated = true;
     if (isRoomCreated) {
       createOffer();
     }
@@ -74,11 +74,11 @@ window.onbeforeunload = function () {
 
 
 // Function to create answer for the received offer
-function doAnswer () {
+function createAnswer () {
   console.log('Sending answer to peer.');
   peerConnection.createAnswer().then(
     setLocalAndSendMessage,
-    onCreateSessionDescriptionError,
+    (error) => console.log(error.toString()),
   );
 }
 
@@ -89,10 +89,6 @@ function setLocalAndSendMessage (sessionDescription) {
   sendMessage(sessionDescription, room);
 }
 
-function onCreateSessionDescriptionError (error) {
-  trace('Failed to create session description: ' + error.toString());
-}
-
 function handleRemoteHangup () {
   console.log('Session terminated.');
   stop();
@@ -100,7 +96,7 @@ function handleRemoteHangup () {
 }
 
 function stop () {
-  isStarted = false;
+  isPeerConnectionCreated = false;
   peerConnection.close();
   peerConnection = null;
 }
@@ -143,20 +139,20 @@ socket.on('message', (message, room) => {
   if (message === 'Got user media in room:') {
     startStream();
   } else if (message.type === 'offer') {
-    if (!isRoomCreated && !isStarted) {
+    if (!isRoomCreated && !isPeerConnectionCreated) {
       startStream();
     }
     peerConnection.setRemoteDescription(new RTCSessionDescription(message));
-    doAnswer();
-  } else if (message.type === 'answer' && isStarted) {
+    createAnswer();
+  } else if (message.type === 'answer' && isPeerConnectionCreated) {
     peerConnection.setRemoteDescription(new RTCSessionDescription(message));
-  } else if (message.type === 'candidate' && isStarted) {
+  } else if (message.type === 'candidate' && isPeerConnectionCreated) {
     const candidate = new RTCIceCandidate({
       sdpMLineIndex: message.label,
       candidate:     message.candidate,
     });
     peerConnection.addIceCandidate(candidate);
-  } else if (message === 'bye' && isStarted) {
+  } else if (message === 'bye' && isPeerConnectionCreated) {
     handleRemoteHangup();
   }
 });
