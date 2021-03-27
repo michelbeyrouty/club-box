@@ -42,6 +42,7 @@ function onSocketConnection (socket) {
         socket.emit('created', room, socket.id);
         break;
       case 1:
+      case 2:
         console.log('Client ID ' + socket.id + ' joined room ' + room);
         io.sockets.in(room).emit('join', room);
         socket.join(room);
