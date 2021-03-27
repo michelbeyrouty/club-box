@@ -25,7 +25,6 @@
   
   /* Style the top navigation bar */
   .topnav {
-	overflow: hidden;
 	display: flex;
 	align-items: center;
 	background-color: #333;
