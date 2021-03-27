@@ -69,7 +69,7 @@ function createOffer () {
 
 // Sending bye if user closes the window
 window.onbeforeunload = function () {
-  sendMessage('bye', room);
+  sendMessage('left', room);
 };
 
 

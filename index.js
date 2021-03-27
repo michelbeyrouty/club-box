@@ -46,7 +46,6 @@ function onSocketConnection (socket) {
         io.sockets.in(room).emit('join', room);
         socket.join(room);
         socket.emit('joined', room, socket.id);
-        io.sockets.in(room).emit('ready');
         break;
       default:
         socket.emit('full', room);
@@ -54,7 +53,7 @@ function onSocketConnection (socket) {
 
   });
 
-  socket.on('bye', ()=>  {
+  socket.on('left', ()=>  {
 	  console.console.log('received bye');
   });
 
