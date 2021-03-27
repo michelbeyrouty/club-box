@@ -25,7 +25,6 @@ if (room !== '') {
 
 // Fetch video containers
 const localVideo = document.querySelector('#localVideo');
-const localUser = document.querySelector('#localUser');
 const remoteVideo = document.querySelector('#remoteVideo');
 
 // Get access to Microphone/Camera

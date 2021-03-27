@@ -83,6 +83,7 @@
   .actionButton {
 	padding: 10px 13px;
 	border: 1px solid gray;
-	border-radius: 100%;
+	border-radius: 10%;
 	outline: none;
+	z-index:10;
   }

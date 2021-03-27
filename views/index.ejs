@@ -26,10 +26,7 @@
     </div>
 
     <div id="actionBar">
-        <button class='actionButton'>A</button>
-        <button class='actionButton'>B</button>
-        <button class='actionButton'>C</button>
-        <button class='actionButton'>D</button>
+        <button id="muteAudienceButton" class='actionButton' onclick="muteAudience()">Mute Audience</button>
     </div>
 </body>
 
@@ -44,3 +41,11 @@
 
 <!-- Import script containing WebRTC related functions -->
 <script src="js\main.js"></script>
+
+
+<script >
+    function muteAudience () {
+         document.getElementById("remoteVideo").muted = true;
+       }
+</script>
+
