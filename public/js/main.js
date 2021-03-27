@@ -9,12 +9,11 @@ let peerConnection;
 // Set local stream constraints
 const localStreamConstraints = {
   audio: true,
-  // video: true,
+  video: true,
 };
 
 // Prompting for room name:
 const room = prompt('Enter room name:');
-const userName = prompt('Enter userName:');
 
 // Initializing socket.io
 const socket = io.connect();
@@ -41,7 +40,6 @@ navigator.mediaDevices.getUserMedia(localStreamConstraints)
 function addLocalStream (stream) {
   localStream = stream;
   localVideo.srcObject = stream;
-  localUser.innerHTML += userName;
   sendMessage('Got user media in room:', room);
   if (isRoomCreated) {
     startStream();
@@ -152,7 +150,7 @@ socket.on('message', (message, room) => {
       candidate:     message.candidate,
     });
     peerConnection.addIceCandidate(candidate);
-  } else if (message === 'bye' && isPeerConnectionCreated) {
+  } else if (message === 'left' && isPeerConnectionCreated) {
     handleRemoteHangup();
   }
 });
