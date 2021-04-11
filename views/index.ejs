@@ -19,14 +19,7 @@
             <div class="videoCard">
               <video id="remoteVideo" class="" autoplay playsinline></video>
             </div>
-            <div class="videoCard">
-              <video id="remoteVideo" class="" autoplay playsinline></video>
-            </div>
         </div>
-    </div>
-
-    <div id="actionBar">
-        <button id="muteAudienceButton" class='actionButton' onclick="muteAudience()">Mute Audience</button>
     </div>
 </body>
 
@@ -41,11 +34,3 @@
 
 <!-- Import script containing WebRTC related functions -->
 <script src="js\main.js"></script>
-
-
-<script >
-    function muteAudience () {
-         document.getElementById("remoteVideo").muted = true;
-       }
-</script>
-
